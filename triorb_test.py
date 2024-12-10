@@ -35,8 +35,8 @@ def run_tests():
 
     # Test movement functions
     print("Getting robot info...")
-    robot.get_info()
-    
+    print(robot.get_info())
+
     robot.wakeup()
     print("Waking up the robot...")
     print(robot.get_pos())
