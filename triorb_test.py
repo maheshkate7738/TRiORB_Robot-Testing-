@@ -13,7 +13,7 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(me
 # Initialize the robot
 try:
     logging.info("Initializing the TriOrb Robot...")
-    robot = TriOrbRobot()
+    robot = TriOrbRobot("/dev/ttyACM0")
     logging.info("Robot initialized successfully!")
 except Exception as e:
     logging.error(f"Failed to initialize the robot: {e}")
