@@ -35,9 +35,10 @@ def run_tests():
 
     # Test movement functions
     robot.wakeup()
-    robot.set_vel_relative(speedx = 0, speedy = 0.1, speedz = 0, accel = 1000) # The robot moves forward at a speed of 0.1m/s while accelerating for 1000ms.
-    sleep(1)
-    robot.close_serial()
+    robot.set_vel_relative(0.0, 0.1, 0.0, acc=1000)
+    time.sleep(1.0)
+    robot.brake() # Stops after moving forward for 1 second at a speed of 0.1 m/s.
+    robot.sleep()
     results["move_backward"] = test_function(robot.move_backward, distance=1.0, speed=0.5)
     results["turn_left"] = test_function(robot.turn_left, angle=90)
     results["turn_right"] = test_function(robot.turn_right, angle=90)
