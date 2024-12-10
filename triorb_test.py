@@ -1,6 +1,7 @@
 import logging
 import time
-from triorb_core import robot as TriOrbRobot 
+from triorb_core import robot as TriOrbRobot
+from time import sleep
 
 
 # Created by DEEPAK YADAV
@@ -33,7 +34,10 @@ def run_tests():
     results = {}
 
     # Test movement functions
-    results["move_forward"] = test_function(robot.set_vel_relative, speedx = 0, speedy = 0.1, speedz = 0, accel = 1000) # The robot moves forward at a speed of 0.1m/s while accelerating for 1000ms.
+    robot.wakeup()
+    robot.set_vel_relative(speedx = 0, speedy = 0.1, speedz = 0, accel = 1000) # The robot moves forward at a speed of 0.1m/s while accelerating for 1000ms.
+    sleep(1)
+    robot.close_serial()
     results["move_backward"] = test_function(robot.move_backward, distance=1.0, speed=0.5)
     results["turn_left"] = test_function(robot.turn_left, angle=90)
     results["turn_right"] = test_function(robot.turn_right, angle=90)
