@@ -35,6 +35,10 @@ def run_tests():
 
     # Test movement functions
     robot.wakeup()
+    print("Waking up the robot...")
+    print(robot.get_status())
+    print(robot.get_pos())
+    print("Moving forward at a speed of 0.1 m/s for 1 second...")
     robot.set_vel_relative(0.0, 0.1, 0.0, acc=1000)
     time.sleep(1.0)
     robot.brake() # Stops after moving forward for 1 second at a speed of 0.1 m/s.
