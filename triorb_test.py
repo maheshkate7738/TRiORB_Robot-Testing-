@@ -1,7 +1,7 @@
 import logging
 import time
 from triorb_core import robot as TriOrbRobot
-from time import sleep
+import time
 
 
 # Created by DEEPAK YADAV
@@ -36,16 +36,26 @@ def run_tests():
     # Test movement functions
     robot.wakeup()
     print("Waking up the robot...")
-    print(robot.get_status())
     print(robot.get_pos())
     print("Moving forward at a speed of 0.1 m/s for 1 second...")
     robot.set_vel_relative(0.0, 0.1, 0.0, acc=1000)
     time.sleep(1.0)
     robot.brake() # Stops after moving forward for 1 second at a speed of 0.1 m/s.
-    robot.sleep()
-    results["move_backward"] = test_function(robot.move_backward, distance=1.0, speed=0.5)
-    results["turn_left"] = test_function(robot.turn_left, angle=90)
-    results["turn_right"] = test_function(robot.turn_right, angle=90)
+    
+    robot.wakeup()
+    robot.set_pos_absolute(-1.0, 0.5, 0.0, vel_xy=0.2) # Moves sideways -1m, forward 0.5m, at a speed of 0.2m/s.
+    robot.brake() # Stops after moving forward for 1 second at a speed of 0.1 m/s.
+
+    print("Reset Origin...")
+    robot.wakeup()
+    print("Resetting Odometry...")
+    robot.reset_origin()
+    print(f"Current position: {robot.get_pos()}")
+
+
+    # results["move_backward"] = test_function(robot.move_backward, distance=1.0, speed=0.5)
+    # results["turn_left"] = test_function(robot.turn_left, angle=90)
+    # results["turn_right"] = test_function(robot.turn_right, angle=90)
 
     # Test sensor reading
     results["get_sensor_data"] = test_function(robot.get_sensor_data)
