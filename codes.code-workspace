@@ -1,0 +1,26 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../triorb-core"
+		},
+		{
+			"path": "../../emage_ws/src/emage_robot_control"
+		},
+		{
+			"path": "../../emage_ws/src/triorb_drive"
+		},
+		{
+			"path": "../../Downloads/TriOrb300P100"
+		},
+		{
+			"path": "../../emage_ws/src/emage_motor_driver"
+		},
+		{
+			"path": "../../adam_ws"
+		}
+	],
+	"settings": {}
+}

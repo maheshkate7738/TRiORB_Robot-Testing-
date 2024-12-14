@@ -1,85 +1,155 @@
 import logging
+
 import time
+
 from triorb_core import robot as TriOrbRobot
-import time
-
-
+ 
 # Created by DEEPAK YADAV
-# Date: 2021-09-30
 
+# Date: 2021-09-30
+ 
 # Configure logging to capture test output
-logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
+
+logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] [%(filename)s:%(lineno)d] %(message)s")
 
 # Initialize the robot
+
 try:
+
     logging.info("Initializing the TriOrb Robot...")
+
     robot = TriOrbRobot("/dev/ttyACM0")
+
     logging.info("Robot initialized successfully!")
+
 except Exception as e:
+
     logging.error(f"Failed to initialize the robot: {e}")
+
     exit(1)
-
+ 
 # Function to test robot's response
+
 def test_function(func, *args, **kwargs):
+
     try:
+
         logging.info(f"Testing {func.__name__} with args={args}, kwargs={kwargs}...")
+
         response = func(*args, **kwargs)
+
         logging.info(f"Response from {func.__name__}: {response}")
+
         return response
+
     except Exception as e:
+
         logging.error(f"Error during {func.__name__}: {e}")
+
         return None
-
+ 
 def run_tests():
+
     results = {}
-
+ 
     # Test movement functions
-    print("Getting robot info...")
-    print(robot.get_info())
 
-    robot.wakeup()
-    print("Waking up the robot...")
-    print(robot.get_pos())
-    print("Moving forward at a speed of 0.1 m/s for 1 second...")
-    robot.set_vel_relative(0.0, 0.1, 0.0, acc=1000)
-    time.sleep(1.0)
-    robot.brake() # Stops after moving forward for 1 second at a speed of 0.1 m/s.
-    
-    robot.wakeup()
-    robot.set_pos_absolute(-1.0, 0.5, 0.0, vel_xy=0.2) # Moves sideways -1m, forward 0.5m, at a speed of 0.2m/s.
-    robot.brake() # Stops after moving forward for 1 second at a speed of 0.1 m/s.
+    logging.info("Getting robot info...")
 
-    print("Reset Origin...")
-    robot.wakeup()
-    print("Resetting Odometry...")
+    logging.info(f"Robot Info: {robot.get_info()}")
+ 
+    logging.info("Finding port")
+
+    logging.info(robot.find_port())
+
+    logging.info(f"Resetting Origin to 0")
     robot.reset_origin()
-    print(f"Current position: {robot.get_pos()}")
+
+    logging.info("Waking up the robot...")
+    robot.wakeup()
+
+    time.sleep(2)
+
+    logging.info(f"Current Position: {robot.get_pos()}")
+ 
+    logging.info("Reset Origin...")
+
+    robot.reset_origin()
+
+    logging.info(f"Current position: {robot.get_pos()}")
+ 
+    logging.info(f"Robot Config : {robot.read_config()}")  # Read current configuration
+
+    robot.write_config({  # Write new configuration
+
+        "acc" : 1500,  # Set standard acceleration/deceleration time to 1.5[s]
+
+        "std-vel" : 0.25,  # Set standard translation speed to 0.25[m/s]
+
+        "std-rot" : 0.5,  # Set standard rotation speed to 0.5[rad/s]
+
+        "torque" : 500,   # Set torque limit to 50[%]
+
+    }) 
+
+    logging.info(f"Robot Config : {robot.read_config()}")  # Read current configuration
+ 
+    logging.info(f"Motor Status : {robot.get_motor_status(params=['error','state','voltage','power'], _id=[1,2,3])}")
+ 
+    # logging.info("Moving sideways -1m, forward 0.5m, at a speed of 0.5m/s....")
+
+    # robot.set_pos_absolute(-0.5, 0.5 , 0.0, vel_xy=0.5) # Moves sideways -1m, forward 0.5m, at a speed of 0.2m/s.
+
+    # robot.join()
+
+    # robot.brake()
+ 
+    # logging.info("The lifter is starting to go up.")
+
+    # res = robot.set_lifter_move(1)[0]
+
+    # time.sleep(1)
+
+    # if res == 1:
+
+    #     logging.info("Lifting done.")
+ 
+    logging.info("Moving forward at a speed of 0.1 m/s for 4 second...")
+
+    logging.info(f"Robot position before movement: {robot.get_pos()}")
+    robot.set_pos_absolute(0, 1.0, 0.0, vel_xy=0.2) # Moves sideways 0m, forward 1m, at a speed of 0.2m/s.
+    robot.join()  # Wait for completion
+    robot.brake()
+    # robot.set_vel_absolute(0.0, 0.0, 0.5, acc=1000, dec=500)
+
+    time.sleep(4)
 
 
-    # results["move_backward"] = test_function(robot.move_backward, distance=1.0, speed=0.5)
-    # results["turn_left"] = test_function(robot.turn_left, angle=90)
-    # results["turn_right"] = test_function(robot.turn_right, angle=90)
+    logging.info(f"Robot position after movement: {robot.get_pos()}")
+    # robot.set_vel_absolute(0.0, 0.0, -0.2, acc=1000, dec=500)
+    # time.sleep(4)
+    # robot.brake()  # Decelerate to stop
+    # robot.join()  # Wait for completion
+ 
+    logging.info(f"Robot position: {robot.get_pos()}")
+ 
+    logging.info("Closing Robot Port")
 
-    # Test sensor reading
-    results["get_sensor_data"] = test_function(robot.get_sensor_data)
+    # robot.close_serial()
 
-    # Test grabbing mechanism
-    results["grab_object"] = test_function(robot.grab_object)
-    results["release_object"] = test_function(robot.release_object)
+    # robot.set_pos_absolute(-0.50, 0.25, 0.0, vel_xy=0.2)  # Moves sideways -1m, forward 0.5m, at a speed of 0.2m/s.
 
-    # Test system status APIs
-    results["get_battery_status"] = test_function(robot.get_battery_status)
-    results["get_status"] = test_function(robot.get_status)
-
-    # Run diagnostics
-    results["run_diagnostics"] = test_function(robot.run_diagnostics)
-
-    # Log results summary
-    logging.info("Test Results Summary:")
-    for api, result in results.items():
-        logging.info(f"{api}: {'Passed' if result is not None else 'Failed'}")
-
+    # robot.join()  # Wait for completion
+ 
+    
+ 
+ 
 if __name__ == "__main__":
+
     logging.info("Starting API tests for the TriOrb Robot...")
+
     run_tests()
+
     logging.info("API tests completed.")
+
+ 
