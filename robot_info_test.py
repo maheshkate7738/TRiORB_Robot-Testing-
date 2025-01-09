@@ -172,6 +172,7 @@ def main():
         print(robot_controller.robot.get_info())
         print(robot_controller.robot.get_device_status())
         print(robot_controller.robot.get_sensor_info())
+        print(robot_controller.robot.get_motor_status())
 
         robot_controller.stop()
         logging.info("Robot operations completed.")
