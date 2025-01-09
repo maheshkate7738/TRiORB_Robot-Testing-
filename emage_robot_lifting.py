@@ -128,7 +128,7 @@ class TriOrbController:
         try:
             logging.info(f"Starting lift operation: {'Up' if position == 1 else 'Down' if position == -1 else 'Stop'}")
             for attempt in range(5):
-                response = self.robot.set_lifter_move(position)
+                response = self.robot.set_lifter_move(position)[0]
                 if response == 1:
                     logging.info("Lift operation successful.")
                     break
