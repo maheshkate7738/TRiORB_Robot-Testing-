@@ -100,9 +100,6 @@ class TriOrbController:
             else:
                 raise ValueError("Invalid direction. Use 'cw' for clockwise or 'ccw' for counterclockwise.")
 
-            # for _ in range(3):
-            #     self.robot.set_vel_absolute(0, 0, z_vel, acc=acc, dec=dec)
-
             while True:
                 current_angle = self.robot.get_pos()[0].w
                 if abs(current_angle - initial_angle) >= abs(adjusted_angle):
@@ -173,7 +170,7 @@ def main():
         robot_controller.move(x_vel=0, y_vel=0.2, z_vel=0, desired_distance=1.5, axis='y')
         robot_controller.lift(1)  # Lift up
         robot_controller.turn(desired_angle=3.14, direction='cw')
-        robot_controller.move(x_vel=0.2, y_vel=0, z_vel=0, desired_distance=1.5, axis='x')
+        robot_controller.move(x_vel=0, y_vel=-0.2, z_vel=0, desired_distance=1.5, axis='y')
         robot_controller.turn(desired_angle=3.14, direction='cw')
         robot_controller.lift(-1)  # Lift down
 
