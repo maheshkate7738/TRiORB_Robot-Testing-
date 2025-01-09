@@ -4,7 +4,7 @@ from triorb_core import robot as TriOrbRobot
 
 
 class TriOrbController:
-    def __init__(self, device_path, distance_offset_correction=0.1, angle_offset_correction=0.42):
+    def __init__(self, device_path, distance_offset_correction=0.11, angle_offset_correction=0.43):
         """
         Initialize the TriOrb robot.
 
