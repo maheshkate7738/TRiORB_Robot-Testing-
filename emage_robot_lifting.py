@@ -131,6 +131,7 @@ class TriOrbController:
                 response = self.robot.set_lifter_move(position)[0]
                 if response == 1:
                     logging.info("Lift operation successful.")
+                    time.sleep(10)
                     break
                 elif response == 2:
                     logging.warning("One or more lifter motors are not energized. Retrying...")
@@ -168,13 +169,12 @@ def main():
         robot_controller.reset_origin()
         robot_controller.wakeup()
 
-        robot_controller.move(x_vel=0, y_vel=0.2, z_vel=0, desired_distance=1.0, axis='y')
-        robot_controller.turn(desired_angle=1.57, direction='cw')
+        robot_controller.move(x_vel=0, y_vel=0.2, z_vel=0, desired_distance=1.5, axis='y')
         robot_controller.lift(1)  # Lift up
-        time.sleep(5)
+        robot_controller.turn(desired_angle=3.14, direction='cw')
+        robot_controller.move(x_vel=0.2, y_vel=0, z_vel=0, desired_distance=1.5, axis='x')
+        robot_controller.turn(desired_angle=3.14, direction='cw')
         robot_controller.lift(-1)  # Lift down
-        time.sleep(5)
-        robot_controller.lift(0)  # Stop lifting
 
         robot_controller.stop()
         logging.info("Robot operations completed.")
