@@ -100,13 +100,14 @@ class TriOrbController:
             else:
                 raise ValueError("Invalid direction. Use 'cw' for clockwise or 'ccw' for counterclockwise.")
 
-            for _ in range(3):
-                self.robot.set_vel_absolute(0, 0, z_vel, acc=acc, dec=dec)
+            # for _ in range(3):
+            #     self.robot.set_vel_absolute(0, 0, z_vel, acc=acc, dec=dec)
 
             while True:
                 current_angle = self.robot.get_pos()[0].w
                 if abs(current_angle - initial_angle) >= abs(adjusted_angle):
                     break
+                self.robot.set_vel_absolute(0, 0, z_vel, acc=acc, dec=dec)
                 time.sleep(0.05)
                 logging.info(f"Current Angle: {current_angle:.2f} rad")
 
