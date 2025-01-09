@@ -93,7 +93,7 @@ def run_tests():
  
     logging.info("Moving sideways -1m, forward 0.5m, at a speed of 0.5m/s....")
 
-    robot.set_pos_absolute(0.0, 1.1 , 0.0, vel_xy=0.5) # Moves sideways -1m, forward 0.5m, at a speed of 0.2m/s.
+    robot.set_pos_absolute(0.0, 1.5 , 0.0, vel_xy=0.2) # Moves sideways -1m, forward 0.5m, at a speed of 0.2m/s.
 
     robot.join()
 
@@ -117,7 +117,7 @@ def run_tests():
     logging.info("Moving forward at a speed of 0.1 m/s for 4 second...")
 
     logging.info(f"Robot position before movement: {robot.get_pos()}")
-    robot.set_pos_absolute(0.0,-1.1, 0.0, vel_xy=0.2) # Moves sideways 0m, forward 1m, at a speed of 0.2m/s.
+    robot.set_pos_absolute(0.0,-1.5, 0.0, vel_xy=0.2) # Moves sideways 0m, forward 1m, at a speed of 0.2m/s.
     robot.join()  # Wait for completion
     robot.brake()
     # robot.set_vel_absolute(0.0, 0.0, 0.5, acc=1000, dec=500)
