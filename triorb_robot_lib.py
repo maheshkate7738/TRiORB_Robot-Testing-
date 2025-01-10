@@ -139,7 +139,7 @@ class TriOrbController:
                     logging.warning("Failed to acquire motor status. Retrying...")
                 else:
                     logging.warning(f"Unknown response code: {response}. Retrying...")
-                time.sleep(0.5)
+                time.sleep(1)
             else:
                 logging.error("Lift operation failed after multiple attempts.")
         except Exception as e:
