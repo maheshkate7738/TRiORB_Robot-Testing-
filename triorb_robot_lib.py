@@ -3,14 +3,17 @@ import time
 from triorb_core import robot as TriOrbRobot
 
 class TriOrbController:
-    def __init__(self, device_path, distance_offset_correction=0.11, angle_offset_correction=0.43):
+    def __init__(self, device_path, robot_type="follower", distance_offset_correction=0.11, angle_offset_correction=0.43):
         """
         Initialize the TriOrb robot.
 
         :param device_path: Path to the robot device.
-        :param offset_correction: Offset correction for each motion (meters).
+        :param robot_type: Type of the robot ("follower" or "guider").
+        :param distance_offset_correction: Offset correction for distance (meters).
+        :param angle_offset_correction: Offset correction for angle (radians).
         """
         self.device_path = device_path
+        self.robot_type = robot_type.lower()
         self.offset_correction = distance_offset_correction
         self.turn_offset = angle_offset_correction
         try:
@@ -122,13 +125,18 @@ class TriOrbController:
 
         :param position: Lifter position: 1 for up, -1 for down, 0 for stop.
         """
+        if self.robot_type != "follower":
+            logging.warning("Lift operation is not available for this robot type.")
+            return
+
         try:
             logging.info(f"Starting lift operation: {'Up' if position == 1 else 'Down' if position == -1 else 'Stop'}")
             for attempt in range(5):
                 response = self.robot.set_lifter_move(position)[0]
                 if response == 1:
-                    logging.info("Lift operation successful.")
+                    logging.info("Lift command executed successfully. Lift operation in progress...")
                     time.sleep(10)
+                    logging.info("Lift operation completed.")
                     break
                 elif response == 2:
                     logging.warning("One or more lifter motors are not energized. Retrying...")
@@ -155,3 +163,18 @@ class TriOrbController:
             time.sleep(3)
         except Exception as e:
             logging.error(f"Failed to stop the robot: {e}")
+
+    def get_pose(self):
+        """
+        Fetch and log the current pose of the robot.
+
+        Logs the x, y, and omega (orientation) values.
+        """
+        try:
+            pose = self.robot.get_pos()[0]
+            x, y, omega = pose.x, pose.y, pose.w
+            logging.info(f"Current Pose - X: {x:.2f} m, Y: {y:.2f} m, Omega: {omega:.2f} rad")
+            return x, y, omega
+        except Exception as e:
+            logging.error(f"Failed to fetch the robot pose: {e}")
+            return None, None, None
