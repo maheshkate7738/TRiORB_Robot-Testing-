@@ -16,7 +16,7 @@ PROJECT_PATH2="/home/emage/codes/emage_adam_demo_python"
 ROBOT3_USERNAME="iot98"
 ROBOT3_PASSWORD="iot2023"
 ROBOT3_IP="192.168.0.72"
-PROJECT_PATH3="/home/emage/codes/emage_adam_demo_python"
+PROJECT_PATH3="/home/iot98/codes/emage_adam_demo_python"
 
 # Function to connect to a robot and run git pull
 git_pull_on_robot() {
@@ -28,7 +28,7 @@ git_pull_on_robot() {
     echo "Connecting to $USERNAME@$IP and performing 'git pull' at $PROJECT_PATH..."
 
     # Use sshpass to pass the password for SSH
-    ssh -p "$PASSWORD" ssh -o StrictHostKeyChecking=no $USERNAME@$IP "cd $PROJECT_PATH && git pull" &
+    sshpass -p "$PASSWORD" ssh -o StrictHostKeyChecking=no $USERNAME@$IP "cd $PROJECT_PATH && git pull" &
 }
 
 # Start pulling the latest changes from Git on all robots

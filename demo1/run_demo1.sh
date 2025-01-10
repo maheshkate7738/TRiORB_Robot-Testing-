@@ -7,16 +7,16 @@ ROBOT1_IP="192.168.0.205"
 ROBOT1_SCRIPT_PATH="/home/emage/codes/emage_adam_demo_python/demo1/demo1_guider.py"
 
 # Robot 2 details
-FOLLER1_USER="robot2_user"
-FOLLER1_PASSWORD="robot2_pass"
-ROBOT2_IP="192.168.0.253"
-ROBOT2_SCRIPT_PATH="/home/emage/codes/emage_adam_demo_python/demo1/demo1_guider.py"
+FOLLOWER1_USER="emage"
+FOLLOWER1_PASSWORD="Emage123"
+FOLLOWER1_IP="192.168.0.253"
+FOLLOWER1_SCRIPT_PATH="/home/emage/codes/emage_adam_demo_python/demo1/demo1_follower.py"
 
 # Robot 3 details
-ROBOT3_USERNAME="emage"
-ROBOT3_PASSWORD="Emage123"
-ROBOT3_IP="192.168.0.72"
-ROBOT3_SCRIPT_PATH="/home/emage/codes/emage_adam_demo_python/demo1/demo1_guider.py"
+FOLLOWER2_USERNAME="iot98"
+FOLLOWER2_PASSWORD="iot2023"
+FOLLOWER2_IP="192.168.0.72"
+FOLLOWER2_SCRIPT_PATH="/home/iot98/codes/emage_adam_demo_python/demo1/demo1_follower.py"
 
 # Function to connect to a robot and run its script
 run_on_robot() {
@@ -33,8 +33,8 @@ run_on_robot() {
 
 # Start running the scripts on all robots
 run_on_robot $GUIDER_USER $GUIDER_PASSWORD $ROBOT1_IP $ROBOT1_SCRIPT_PATH
-# run_on_robot $FOLLER1_USER $ROBOT2_PASSWORD $ROBOT2_IP $ROBOT2_SCRIPT_PATH
-# run_on_robot $ROBOT3_USERNAME $ROBOT3_PASSWORD $ROBOT3_IP $ROBOT3_SCRIPT_PATH
+run_on_robot $FOLLOWER1_USER $FOLLOWER1_PASSWORD $FOLLOWER1_IP $FOLLOWER1_SCRIPT_PATH
+run_on_robot $FOLLOWER2_USERNAME $FOLLOWER2_PASSWORD $FOLLOWER2_IP $FOLLOWER2_SCRIPT_PATH
 
 # Wait for all processes to finish
 wait
