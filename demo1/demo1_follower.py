@@ -6,7 +6,8 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from triorb_robot_lib import TriOrbController
 
 def main():
-    logging.basicConfig(level=logging.INFO, format="%(asctime)s  (%(filename)s:%(lineno)d) [%(levelname)s] %(message)s")
+    robot_name = "Follower"
+    logging.basicConfig(level=logging.INFO, format="%(asctime)s  (%(filename)s:%(lineno)d) [%(levelname)s] [Robot: %(robot_name)s] %(message)s")
     
     # Step 1: Connect to the robot
     device_path = "/dev/ttyACM0"
