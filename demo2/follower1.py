@@ -61,7 +61,7 @@ def main():
     robot.move(x_vel=0, y_vel=0.2, z_vel=0, desired_distance=1.8, axis="y")
     robot.turn(desired_angle=1.57, direction='cw')
     robot.lift(-1)  # Lift down
-    robot.move(x_vel=0.2, y_vel=0, z_vel=0, desired_distance=0.9, axis="x")
+    robot.move(x_vel=0.2, y_vel=0, z_vel=0, desired_distance=0.85, axis="x")
     robot.get_pose()
 
     # Stop the robot at the end
