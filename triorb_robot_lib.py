@@ -1,4 +1,4 @@
-import self.logger
+
 import time
 from triorb_core import robot as TriOrbRobot
 
