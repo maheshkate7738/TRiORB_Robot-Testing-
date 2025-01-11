@@ -3,7 +3,7 @@ import time
 from triorb_core import robot as TriOrbRobot
 
 class TriOrbController:
-    def __init__(self, device_path, logger, robot_type="follower", distance_offset_correction=0.10, angle_offset_correction=0.43):
+    def __init__(self, device_path, logger, robot_type="follower", distance_offset_correction=0.1, angle_offset_correction=0.43):
         """
         Initialize the TriOrb robot.
 
