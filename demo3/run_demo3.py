@@ -10,12 +10,12 @@ robots = [
         "script_path": "/home/emage/codes/emage_adam_demo_python/demo3/guider.py"
     },
     # Uncomment and add more robots as needed
-    # {
-    #     "username": "emage",
-    #     "password": "Emage123",
-    #     "ip": "192.168.0.253",
-    #     "script_path": "/home/emage/codes/emage_adam_demo_python/demo3/follower1.py"
-    # },
+    {
+        "username": "emage",
+        "password": "Emage123",
+        "ip": "192.168.0.253",
+        "script_path": "/home/emage/codes/emage_adam_demo_python/demo3/follower1.py"
+    },
     # {
     #     "username": "iot98",
     #     "password": "iot2023",
