@@ -76,7 +76,7 @@ class TriOrbController:
             for _ in range(2):
                 self.robot.brake()
 
-            time.sleep(3)
+            time.sleep(1)
             current_position = getattr(self.robot.get_pos()[0], axis)
             self.logger.info(f"Completed movement along {axis}-axis. Final Position: {current_position:.2f} m")
         except Exception as e:
@@ -94,6 +94,7 @@ class TriOrbController:
         """
         try:
             adjusted_angle = max(desired_angle - self.turn_offset, 0)
+            time.sleep(1)
             initial_angle = self.robot.get_pos()[0].w
             self.logger.info(f"Starting turn {direction} for {desired_angle} radians (adjusted to {adjusted_angle} radians)...")
 
@@ -115,7 +116,7 @@ class TriOrbController:
             for _ in range(2):
                 self.robot.brake()
 
-            time.sleep(3)
+            time.sleep(2)
             current_angle = self.robot.get_pos()[0].w
             self.logger.info(f"Completed turn {direction}. Final Angle: {current_angle:.2f} rad")
         except Exception as e:
