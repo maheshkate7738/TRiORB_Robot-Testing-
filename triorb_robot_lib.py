@@ -82,7 +82,7 @@ class TriOrbController:
         except Exception as e:
             self.logger.error(f"Error during movement: {e}")
 
-    def turn(self, desired_angle, direction, z_vel=0.5, acc=350, dec=350):
+    def turn(self, desired_angle, direction, z_vel=0.5, acc=200, dec=200):
         """
         Turn the robot in a specified direction, adjusting for angular offset.
 
@@ -110,7 +110,7 @@ class TriOrbController:
                 if abs(current_angle - initial_angle) >= abs(adjusted_angle):
                     break
                 self.robot.set_vel_absolute(0, 0, z_vel, acc=acc, dec=dec)
-                time.sleep(0.1)
+                time.sleep(0.15)
                 self.logger.info(f"Current Angle: {current_angle:.2f} rad")
 
             for _ in range(2):
