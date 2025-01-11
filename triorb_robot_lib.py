@@ -1,9 +1,9 @@
-import logging
+import self.logger
 import time
 from triorb_core import robot as TriOrbRobot
 
 class TriOrbController:
-    def __init__(self, device_path, robot_type="follower", distance_offset_correction=0.11, angle_offset_correction=0.43):
+    def __init__(self, device_path, logger, robot_type="follower", distance_offset_correction=0.11, angle_offset_correction=0.43):
         """
         Initialize the TriOrb robot.
 
@@ -16,32 +16,33 @@ class TriOrbController:
         self.robot_type = robot_type.lower()
         self.offset_correction = distance_offset_correction
         self.turn_offset = angle_offset_correction
+        self.logger = logger
         try:
-            logging.info("Initializing the TriOrb Robot...")
+            self.logger.info("Initializing the TriOrb Robot...")
             self.robot = TriOrbRobot(self.device_path)
-            logging.info("Robot initialized successfully!")
+            self.logger.info("Robot initialized successfully!")
         except Exception as e:
-            logging.error(f"Failed to initialize the robot: {e}")
+            self.logger.error(f"Failed to initialize the robot: {e}")
             exit(1)
 
     def reset_origin(self):
         """Reset the robot's origin."""
         try:
-            logging.info("Resetting origin...")
+            self.logger.info("Resetting origin...")
             for _ in range(2):
                 self.robot.reset_origin()
         except Exception as e:
-            logging.error(f"Failed to reset origin: {e}")
+            self.logger.error(f"Failed to reset origin: {e}")
 
     def wakeup(self):
         """Wake up the robot."""
         try:
-            logging.info("Waking up the robot...")
+            self.logger.info("Waking up the robot...")
             for _ in range(2):
                 self.robot.wakeup()
             time.sleep(3)
         except Exception as e:
-            logging.error(f"Failed to wake up the robot: {e}")
+            self.logger.error(f"Failed to wake up the robot: {e}")
 
     def move(self, x_vel, y_vel, z_vel, desired_distance, axis, acc=350, dec=350):
         """
@@ -59,7 +60,7 @@ class TriOrbController:
             correction_distance = desired_distance * self.offset_correction
             adjusted_distance = max(desired_distance - correction_distance, 0)
             initial_position = getattr(self.robot.get_pos()[0], axis)
-            logging.info(f"Starting movement along {axis}-axis for {desired_distance} meters (adjusted to {adjusted_distance} meters)...")
+            self.logger.info(f"Starting movement along {axis}-axis for {desired_distance} meters (adjusted to {adjusted_distance} meters)...")
 
             for _ in range(3):
                 self.robot.set_vel_absolute(x_vel, y_vel, z_vel, acc=acc, dec=dec)
@@ -69,16 +70,16 @@ class TriOrbController:
                 if abs(current_position - initial_position) >= abs(adjusted_distance):
                     break
                 time.sleep(0.05)
-                logging.info(f"Current {axis.upper()} Position: {current_position:.2f} m")
+                self.logger.info(f"Current {axis.upper()} Position: {current_position:.2f} m")
 
             for _ in range(2):
                 self.robot.brake()
 
             time.sleep(3)
             current_position = getattr(self.robot.get_pos()[0], axis)
-            logging.info(f"Completed movement along {axis}-axis. Final Position: {current_position:.2f} m")
+            self.logger.info(f"Completed movement along {axis}-axis. Final Position: {current_position:.2f} m")
         except Exception as e:
-            logging.error(f"Error during movement: {e}")
+            self.logger.error(f"Error during movement: {e}")
 
     def turn(self, desired_angle, direction, z_vel=0.5, acc=350, dec=350):
         """
@@ -93,7 +94,7 @@ class TriOrbController:
         try:
             adjusted_angle = max(desired_angle - self.turn_offset, 0)
             initial_angle = self.robot.get_pos()[0].w
-            logging.info(f"Starting turn {direction} for {desired_angle} radians (adjusted to {adjusted_angle} radians)...")
+            self.logger.info(f"Starting turn {direction} for {desired_angle} radians (adjusted to {adjusted_angle} radians)...")
 
             if direction == 'ccw':
                 z_vel = -abs(z_vel)
@@ -108,16 +109,16 @@ class TriOrbController:
                     break
                 self.robot.set_vel_absolute(0, 0, z_vel, acc=acc, dec=dec)
                 time.sleep(0.05)
-                logging.info(f"Current Angle: {current_angle:.2f} rad")
+                self.logger.info(f"Current Angle: {current_angle:.2f} rad")
 
             for _ in range(2):
                 self.robot.brake()
 
             time.sleep(3)
             current_angle = self.robot.get_pos()[0].w
-            logging.info(f"Completed turn {direction}. Final Angle: {current_angle:.2f} rad")
+            self.logger.info(f"Completed turn {direction}. Final Angle: {current_angle:.2f} rad")
         except Exception as e:
-            logging.error(f"Error during turn: {e}")
+            self.logger.error(f"Error during turn: {e}")
 
     def lift(self, position):
         """
@@ -126,43 +127,43 @@ class TriOrbController:
         :param position: Lifter position: 1 for up, -1 for down, 0 for stop.
         """
         if self.robot_type != "follower":
-            logging.warning("Lift operation is not available for this robot type.")
+            self.logger.warning("Lift operation is not available for this robot type.")
             return
 
         try:
-            logging.info(f"Starting lift operation: {'Up' if position == 1 else 'Down' if position == -1 else 'Stop'}")
+            self.logger.info(f"Starting lift operation: {'Up' if position == 1 else 'Down' if position == -1 else 'Stop'}")
             for attempt in range(5):
                 response = self.robot.set_lifter_move(position)[0]
                 if response == 1:
-                    logging.info("Lift command executed successfully. Lift operation in progress...")
+                    self.logger.info("Lift command executed successfully. Lift operation in progress...")
                     time.sleep(10)
-                    logging.info("Lift operation completed.")
+                    self.logger.info("Lift operation completed.")
                     break
                 elif response == 2:
-                    logging.warning("One or more lifter motors are not energized. Retrying...")
+                    self.logger.warning("One or more lifter motors are not energized. Retrying...")
                 elif response == 3:
-                    logging.error("Lifter motor encountered an error. Please restart the robot.")
+                    self.logger.error("Lifter motor encountered an error. Please restart the robot.")
                     return
                 elif response == 4:
-                    logging.warning("Failed to acquire motor status. Retrying...")
+                    self.logger.warning("Failed to acquire motor status. Retrying...")
                 else:
-                    logging.warning(f"Unknown response code: {response}. Retrying...")
+                    self.logger.warning(f"Unknown response code: {response}. Retrying...")
                 time.sleep(1)
             else:
-                logging.error("Lift operation failed after multiple attempts.")
+                self.logger.error("Lift operation failed after multiple attempts.")
         except Exception as e:
-            logging.error(f"Error during lift operation: {e}")
+            self.logger.error(f"Error during lift operation: {e}")
 
     def stop(self):
         """Stop the robot."""
         try:
-            logging.info("Stopping the robot.")
+            self.logger.info("Stopping the robot.")
             for _ in range(2):
                 self.robot.brake()
                 self.robot.sleep()
             time.sleep(3)
         except Exception as e:
-            logging.error(f"Failed to stop the robot: {e}")
+            self.logger.error(f"Failed to stop the robot: {e}")
 
     def get_pose(self):
         """
@@ -173,8 +174,8 @@ class TriOrbController:
         try:
             pose = self.robot.get_pos()[0]
             x, y, omega = pose.x, pose.y, pose.w
-            logging.info(f"Current Pose - X: {x:.2f} m, Y: {y:.2f} m, Omega: {omega:.2f} rad")
+            self.logger.info(f"Current Pose - X: {x:.2f} m, Y: {y:.2f} m, Omega: {omega:.2f} rad")
             return x, y, omega
         except Exception as e:
-            logging.error(f"Failed to fetch the robot pose: {e}")
+            self.logger.error(f"Failed to fetch the robot pose: {e}")
             return None, None, None

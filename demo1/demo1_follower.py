@@ -7,7 +7,6 @@ from triorb_robot_lib import TriOrbController
 
 
 class ContextualFilter(logging.Filter):
-    """Custom filter to add context information like robot_name to log records."""
     def __init__(self, robot_name):
         super().__init__()
         self.robot_name = robot_name
@@ -17,20 +16,34 @@ class ContextualFilter(logging.Filter):
         return True
 
 
+def configure_logger(robot_name):
+    """Configure the logger with the contextual filter."""
+    logger = logging.getLogger(__name__)
+    logger.setLevel(logging.INFO)
+
+    # Set the log format
+    formatter = logging.Formatter(
+        "%(asctime)s (%(filename)s:%(lineno)d) [%(levelname)s] [Robot: %(robot_name)s] %(message)s"
+    )
+
+    # Create a stream handler and set the formatter
+    handler = logging.StreamHandler()
+    handler.setFormatter(formatter)
+
+    # Add contextual filter for robot_name
+    logger.addFilter(ContextualFilter(robot_name))
+    logger.addHandler(handler)
+
+    return logger
+
+
 def main():
     robot_name = "Follower"
-
-    # Configure logging
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(asctime)s (%(filename)s:%(lineno)d) [%(levelname)s] [Robot: %(robot_name)s] %(message)s",
-    )
-    logger = logging.getLogger(__name__)
-    logger.addFilter(ContextualFilter(robot_name))  # Add the filter with robot_name
+    logger = configure_logger(robot_name)
 
     # Step 1: Connect to the robot
     device_path = "/dev/ttyACM0"
-    robot = TriOrbController(device_path)
+    robot = TriOrbController(device_path, logger)
 
     logger.info("Resetting origin...")
     robot.reset_origin()
