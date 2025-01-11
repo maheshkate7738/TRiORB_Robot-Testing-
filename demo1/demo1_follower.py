@@ -17,8 +17,9 @@ def main():
     # Configure logging
     logging.basicConfig(
         level=logging.INFO,
-        format="%(asctime)s (%(filename)s:%(lineno)d) [%(levelname)s] %(message)s",
+        format="%(asctime)s (%(filename)s:%(lineno)d) [%(levelname)s] [Robot: %(robot_name)s] %(message)s",
     )
+    # Add the robot name as part of the logger's context
     logger = ContextualAdapter(logging.getLogger(__name__), {"robot_name": robot_name})
 
     # Step 1: Connect to the robot
