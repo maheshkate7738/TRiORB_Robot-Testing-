@@ -61,7 +61,7 @@ def main():
     robot.turn(desired_angle=1.57, direction='cw')
     robot.move(x_vel=0.2, y_vel=0, z_vel=0, desired_distance=2.0, axis="x")
     robot.turn(desired_angle=1.57, direction='cw')
-    robot.move(x_vel=0, y_vel=-0.2, z_vel=0, desired_distance=1.0, axis="y")
+    robot.move(x_vel=0, y_vel=-0.2, z_vel=0, desired_distance=0.5, axis="y")
     robot.lift(-1)  # Lift down
     # robot.move(x_vel=0, y_vel=0.2, z_vel=0, desired_distance=0.9, axis="y")
 
