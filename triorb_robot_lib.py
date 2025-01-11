@@ -70,7 +70,7 @@ class TriOrbController:
                 current_position = getattr(self.robot.get_pos()[0], axis)
                 if abs(current_position - initial_position) >= abs(adjusted_distance):
                     break
-                time.sleep(0.05)
+                time.sleep(0.1)
                 self.logger.info(f"Current {axis.upper()} Position: {current_position:.2f} m")
 
             for _ in range(2):
@@ -109,7 +109,7 @@ class TriOrbController:
                 if abs(current_angle - initial_angle) >= abs(adjusted_angle):
                     break
                 self.robot.set_vel_absolute(0, 0, z_vel, acc=acc, dec=dec)
-                time.sleep(0.05)
+                time.sleep(0.1)
                 self.logger.info(f"Current Angle: {current_angle:.2f} rad")
 
             for _ in range(2):
