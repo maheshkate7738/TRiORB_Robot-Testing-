@@ -73,7 +73,8 @@ class TriOrbController:
                 time.sleep(0.1)
                 self.logger.info(f"Current {axis.upper()} Position: {current_position:.2f} m")
 
-            for _ in range(2):
+            for _ in range(5):
+                self.robot.set_vel_absolute(0, 0, 0, acc=acc, dec=dec)
                 self.robot.brake()
 
             time.sleep(1)
@@ -113,7 +114,8 @@ class TriOrbController:
                 time.sleep(0.15)
                 self.logger.info(f"Current Angle: {current_angle:.2f} rad")
 
-            for _ in range(2):
+            for _ in range(5):
+                self.robot.set_vel_absolute(0, 0, 0, acc=acc, dec=dec)
                 self.robot.brake()
 
             time.sleep(2)
