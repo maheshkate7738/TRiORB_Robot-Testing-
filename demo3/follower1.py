@@ -55,11 +55,13 @@ def main():
     logger.info("Starting movements...")
     robot.move(x_vel=0, y_vel=-0.2, z_vel=0, desired_distance=0.85, axis="y")
     robot.lift(1)  # Lift up
-    robot.move(x_vel=0, y_vel=0.2, z_vel=0, desired_distance=1.0, axis="y")
-    time.sleep(7)
     robot.move(x_vel=0, y_vel=0.2, z_vel=0, desired_distance=0.9, axis="y")
+    time.sleep(7)
+    robot.move(x_vel=0, y_vel=0.2, z_vel=0, desired_distance=1.0, axis="y")
     robot.turn(desired_angle=1.57, direction='cw')
-    robot.move(x_vel=0.2, y_vel=0, z_vel=0, desired_distance=2.0, axis="x")
+    robot.move(x_vel=0.2, y_vel=0, z_vel=0, desired_distance=1.5, axis="x")
+    time.sleep(2)
+    robot.move(x_vel=0.2, y_vel=0, z_vel=0, desired_distance=0.5, axis="x")
     robot.turn(desired_angle=1.57, direction='cw')
     robot.move(x_vel=0, y_vel=-0.2, z_vel=0, desired_distance=1.0, axis="y")
     robot.lift(-1)  # Lift down
