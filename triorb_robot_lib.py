@@ -44,7 +44,7 @@ class TriOrbController:
         except Exception as e:
             self.logger.error(f"Failed to wake up the robot: {e}")
 
-    def move(self, x_vel, y_vel, z_vel, desired_distance, axis, acc=350, dec=350):
+    def move(self, x_vel, y_vel, z_vel, desired_distance, axis, acc=200, dec=200):
         """
         Move the robot in a specified direction, adjusting for hardware offset.
 

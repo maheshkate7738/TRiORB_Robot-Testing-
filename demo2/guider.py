@@ -52,7 +52,7 @@ def main():
     
     # You can also add custom operations:
     logger.info("Starting movements...")
-    logger.info("Sleeping for 15 seconds ..")
+    logger.info("Sleeping for 18 seconds ..")
     time.sleep(18)
     logger.info("Starting motion...")
     robot.move(x_vel=0, y_vel=0.2, z_vel=0, desired_distance=2.0, axis='y')
