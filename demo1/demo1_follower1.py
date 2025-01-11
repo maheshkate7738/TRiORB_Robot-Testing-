@@ -5,8 +5,8 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from triorb_robot_lib import TriOrbController
 
+
 class ContextualFilter(logging.Filter):
-    """Custom filter to add context information like robot_name to log records."""
     def __init__(self, robot_name):
         super().__init__()
         self.robot_name = robot_name
@@ -14,6 +14,7 @@ class ContextualFilter(logging.Filter):
     def filter(self, record):
         record.robot_name = self.robot_name
         return True
+
 
 def configure_logger(robot_name):
     """Configure the logger with the contextual filter."""
@@ -35,9 +36,9 @@ def configure_logger(robot_name):
 
     return logger
 
-def main():
-    robot_name = "Guider"
 
+def main():
+    robot_name = "Follower 1"
     logger = configure_logger(robot_name)
 
     # Step 1: Connect to the robot
@@ -48,18 +49,20 @@ def main():
     robot.reset_origin()
     logger.info("Waking up the robot...")
     robot.wakeup()
-    
-    # You can also add custom operations:
+
+    # Custom operations
     logger.info("Starting movements...")
-    robot.move(x_vel=0, y_vel=0.2, z_vel=0, desired_distance=2.0, axis='y')
-    robot.turn(desired_angle=3.14, direction='cw')
-    robot.move(x_vel=0, y_vel=-0.2, z_vel=0, desired_distance=2.0, axis='y')
-    robot.turn(desired_angle=3.14, direction='cw')
-    robot.get_pose()
+    robot.move(x_vel=0, y_vel=-0.2, z_vel=0, desired_distance=0.9, axis="y")
+    robot.lift(1)  # Lift up
+    robot.move(x_vel=0, y_vel=0.2, z_vel=0, desired_distance=2.5, axis="y")
+    robot.move(x_vel=0, y_vel=-0.2, z_vel=0, desired_distance=2.5, axis="y")
+    robot.lift(-1)  # Lift down
+    robot.move(x_vel=0, y_vel=0.2, z_vel=0, desired_distance=0.9, axis="y")
 
     # Stop the robot at the end
     robot.stop()
-    logging.info("Robot operations completed.")
+    logger.info("Robot operations completed.")
+
 
 if __name__ == "__main__":
     main()
