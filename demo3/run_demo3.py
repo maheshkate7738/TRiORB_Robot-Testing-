@@ -9,7 +9,6 @@ robots = [
         "ip": "192.168.0.205",
         "script_path": "/home/emage/codes/emage_adam_demo_python/demo3/guider.py"
     },
-    # Uncomment and add more robots as needed
     {
         "username": "emage",
         "password": "Emage123",
@@ -26,28 +25,13 @@ robots = [
 
 # Function to connect to a robot and run its script
 def run_on_robot(username, password, ip, script_path):
-    print(f"Connecting to {username}@{ip}...")
-
-    # SSH command to stop any running Python processes
-    pkill_command = f'sshpass -p "{password}" ssh -o StrictHostKeyChecking=no {username}@{ip} "echo \'{password}\' | sudo -S pkill python3"'
-
-    # SSH command to run the Python script
-    script_command = f"sshpass -p {password} ssh -o StrictHostKeyChecking=no {username}@{ip} 'python3 {script_path}'"
+    print(f"Connecting to {username}@{ip} and starting the script at {script_path}...")
     
-    try:
-        # Step 1: Stop any previously running Python processes
-        print(f"Stopping any running Python processes on {ip}...")
-        subprocess.run(pkill_command, shell=True, check=True, timeout=60)
-        print(f"Stopped running Python processes on {ip}")
-
-        # Step 2: Start the new Python script
-        print(f"Starting the script {script_path} on {ip}...")
-        subprocess.run(script_command, shell=True, check=True, timeout=300)
-        print(f"Script executed successfully on {ip}")
-    except subprocess.CalledProcessError as e:
-        print(f"Error executing command on {ip}: {e}")
-    except subprocess.TimeoutExpired:
-        print(f"Timeout expired while executing command on {ip}")
+    # SSH command to run the script on the robot using sshpass and ssh
+    command = f"sshpass -p {password} ssh -o StrictHostKeyChecking=no {username}@{ip} 'python3 {script_path}'"
+    
+    # Execute the command
+    subprocess.run(command, shell=True)
 
 # List to store threads
 threads = []
