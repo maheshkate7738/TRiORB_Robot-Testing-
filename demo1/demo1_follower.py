@@ -6,9 +6,15 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from triorb_robot_lib import TriOrbController
 
 
-class ContextualAdapter(logging.LoggerAdapter):
-    def process(self, msg, kwargs):
-        return f"[Robot: {self.extra['robot_name']}] {msg}", kwargs
+class ContextualFilter(logging.Filter):
+    """Custom filter to add context information like robot_name to log records."""
+    def __init__(self, robot_name):
+        super().__init__()
+        self.robot_name = robot_name
+
+    def filter(self, record):
+        record.robot_name = self.robot_name
+        return True
 
 
 def main():
@@ -19,8 +25,8 @@ def main():
         level=logging.INFO,
         format="%(asctime)s (%(filename)s:%(lineno)d) [%(levelname)s] [Robot: %(robot_name)s] %(message)s",
     )
-    # Add the robot name as part of the logger's context
-    logger = ContextualAdapter(logging.getLogger(__name__), {"robot_name": robot_name})
+    logger = logging.getLogger(__name__)
+    logger.addFilter(ContextualFilter(robot_name))  # Add the filter with robot_name
 
     # Step 1: Connect to the robot
     device_path = "/dev/ttyACM0"
