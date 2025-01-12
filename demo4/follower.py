@@ -39,7 +39,7 @@ def configure_logger(robot_name):
 
 
 def main():
-    robot_name = "Follower 1"
+    robot_name = "Follower 2"
     logger = configure_logger(robot_name)
 
     # Step 1: Connect to the robot
