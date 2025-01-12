@@ -43,7 +43,7 @@ def main():
 
     # Step 1: Connect to the robot
     device_path = "/dev/ttyACM0"
-    robot = TriOrbController(device_path, logger)
+    robot = TriOrbController(device_path, logger, angle_offset_correction=0.28)
 
     logger.info("Resetting origin...")
     robot.reset_origin()
