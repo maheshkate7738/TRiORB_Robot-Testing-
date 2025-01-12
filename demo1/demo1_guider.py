@@ -1,6 +1,7 @@
 import logging
 import sys
 import os
+import time
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from triorb_robot_lib import TriOrbController
@@ -51,10 +52,13 @@ def main():
     
     # You can also add custom operations:
     logger.info("Starting movements...")
+    time.sleep(18)
     robot.move(x_vel=0, y_vel=0.2, z_vel=0, desired_distance=2.0, axis='y')
-    robot.turn(desired_angle=3.14, direction='cw')
+    # robot.turn(desired_angle=3.14, direction='cw')
+    time.sleep(5)
     robot.move(x_vel=0, y_vel=-0.2, z_vel=0, desired_distance=2.0, axis='y')
-    robot.turn(desired_angle=3.14, direction='cw')
+    # robot.turn(desired_angle=3.14, direction='cw')
+    # time.sleep(10)
     robot.get_pose()
 
     # Stop the robot at the end
