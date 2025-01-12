@@ -60,6 +60,7 @@ class TriOrbController:
             # correction_distance = desired_distance * self.offset_correction
             correction_distance = self.offset_correction
             adjusted_distance = max(desired_distance - correction_distance, 0)
+            time.sleep(1)
             initial_position = getattr(self.robot.get_pos()[0], axis)
             self.logger.info(f"Starting movement along {axis}-axis for {desired_distance} meters (adjusted to {adjusted_distance} meters)...")
 
