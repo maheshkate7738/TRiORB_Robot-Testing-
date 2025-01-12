@@ -43,7 +43,7 @@ def main():
 
     # Step 1: Connect to the robot
     device_path = "/dev/ttyACM0"
-    robot = TriOrbController(device_path, logger)
+    robot = TriOrbController(device_path, logger, angle_offset_correction=0.28)
 
     logger.info("Resetting origin...")
     robot.reset_origin()
@@ -54,12 +54,14 @@ def main():
     logger.info("Starting movements...")
     robot.move(x_vel=0, y_vel=-0.2, z_vel=0, desired_distance=0.9, axis="y")
     robot.lift(1)  # Lift up
-    robot.move(x_vel=0, y_vel=0.2, z_vel=0, desired_distance=1.9, axis="y")
+    robot.move(x_vel=0, y_vel=0.2, z_vel=0, desired_distance=2.0, axis="y")
+    # robot.turn(desired_angle=1.57, direction='cw')
+    robot.move(x_vel=-0.2, y_vel=0, z_vel=0, desired_distance=1.25, axis="x")
+    # robot.turn(desired_angle=1.57, direction='cw')
+    robot.move(x_vel=0, y_vel=0.2, z_vel=0, desired_distance=1.8, axis="y")
     robot.turn(desired_angle=1.57, direction='cw')
-    robot.move(x_vel=0.2, y_vel=0, z_vel=0, desired_distance=1.5, axis="x")
-    robot.turn(desired_angle=1.57, direction='cw')
-    robot.move(x_vel=0, y_vel=-0.2, z_vel=0, desired_distance=0.5, axis="y")
     robot.lift(-1)  # Lift down
+    robot.move(x_vel=0.2, y_vel=0, z_vel=0, desired_distance=0.85, axis="x")
     robot.get_pose()
 
     # Stop the robot at the end

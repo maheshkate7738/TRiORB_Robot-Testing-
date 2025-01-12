@@ -3,7 +3,7 @@ import time
 from triorb_core import robot as TriOrbRobot
 
 class TriOrbController:
-    def __init__(self, device_path, logger, robot_type="follower", distance_offset_correction=0.11, angle_offset_correction=0.43):
+    def __init__(self, device_path, logger, robot_type="follower", distance_offset_correction=0.095, angle_offset_correction=0.3):
         """
         Initialize the TriOrb robot.
 
@@ -57,7 +57,8 @@ class TriOrbController:
         :param dec: Deceleration.
         """
         try:
-            correction_distance = desired_distance * self.offset_correction
+            # correction_distance = desired_distance * self.offset_correction
+            correction_distance = self.offset_correction
             adjusted_distance = max(desired_distance - correction_distance, 0)
             initial_position = getattr(self.robot.get_pos()[0], axis)
             self.logger.info(f"Starting movement along {axis}-axis for {desired_distance} meters (adjusted to {adjusted_distance} meters)...")
@@ -69,13 +70,14 @@ class TriOrbController:
                 current_position = getattr(self.robot.get_pos()[0], axis)
                 if abs(current_position - initial_position) >= abs(adjusted_distance):
                     break
-                time.sleep(0.05)
+                time.sleep(0.1)
                 self.logger.info(f"Current {axis.upper()} Position: {current_position:.2f} m")
 
-            for _ in range(2):
+            for _ in range(5):
+                self.robot.set_vel_absolute(0, 0, 0, acc=acc, dec=dec)
                 self.robot.brake()
 
-            time.sleep(3)
+            time.sleep(1)
             current_position = getattr(self.robot.get_pos()[0], axis)
             self.logger.info(f"Completed movement along {axis}-axis. Final Position: {current_position:.2f} m")
         except Exception as e:
@@ -93,6 +95,7 @@ class TriOrbController:
         """
         try:
             adjusted_angle = max(desired_angle - self.turn_offset, 0)
+            time.sleep(1)
             initial_angle = self.robot.get_pos()[0].w
             self.logger.info(f"Starting turn {direction} for {desired_angle} radians (adjusted to {adjusted_angle} radians)...")
 
@@ -108,13 +111,14 @@ class TriOrbController:
                 if abs(current_angle - initial_angle) >= abs(adjusted_angle):
                     break
                 self.robot.set_vel_absolute(0, 0, z_vel, acc=acc, dec=dec)
-                time.sleep(0.05)
+                time.sleep(0.15)
                 self.logger.info(f"Current Angle: {current_angle:.2f} rad")
 
-            for _ in range(2):
+            for _ in range(5):
+                self.robot.set_vel_absolute(0, 0, 0, acc=acc, dec=dec)
                 self.robot.brake()
 
-            time.sleep(3)
+            time.sleep(2)
             current_angle = self.robot.get_pos()[0].w
             self.logger.info(f"Completed turn {direction}. Final Angle: {current_angle:.2f} rad")
         except Exception as e:
