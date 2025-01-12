@@ -52,7 +52,7 @@ def main():
     
     # You can also add custom operations:
     logger.info("Starting movements...")
-    time.sleep(18)
+    time.sleep(16)
     robot.move(x_vel=0, y_vel=0.2, z_vel=0, desired_distance=2.0, axis='y')
     # robot.turn(desired_angle=3.14, direction='cw')
     time.sleep(5)
