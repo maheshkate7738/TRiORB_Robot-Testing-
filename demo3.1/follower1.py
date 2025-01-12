@@ -59,7 +59,7 @@ def main():
     robot.lift(1)  # Lift up
     robot.move(x_vel=0, y_vel=0.2, z_vel=0, desired_distance=1.5, axis="y")
     robot.turn(desired_angle=1.57, direction='ccw')
-    robot.move(x_vel=0.2, y_vel=0.0, z_vel=0, desired_distance=0.5, axis="y")
+    robot.move(x_vel=0.2, y_vel=0.0, z_vel=0, desired_distance=0.4, axis="y")
     robot.lift(-1)  # Lift down
 
 
