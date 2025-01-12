@@ -37,7 +37,7 @@ kill_python_processes_and_git_pull() {
 
 # Kill Python processes and pull latest changes from Git on all robots
 kill_python_processes_and_git_pull $GUIDER_USER $GUIDER_PASSWORD $ROBOT1_IP $PROJECT_PATH
-# kill_python_processes_and_git_pull $FOLLER1_USER $FOLLER1_PASSWORD $ROBOT2_IP $PROJECT_PATH2
+kill_python_processes_and_git_pull $FOLLER1_USER $FOLLER1_PASSWORD $ROBOT2_IP $PROJECT_PATH2
 kill_python_processes_and_git_pull $ROBOT3_USERNAME $ROBOT3_PASSWORD $ROBOT3_IP $PROJECT_PATH3
 
 # Wait for all processes to finish
