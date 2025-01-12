@@ -7,13 +7,13 @@ robots = [
         "username": "emage",
         "password": "Emage123",
         "ip": "192.168.0.205",
-        "script_path": "/home/emage/codes/emage_adam_demo_python/demo3/guider.py"
+        "script_path": "/home/emage/codes/emage_adam_demo_python/demo3.1/guider.py"
     },
     {
         "username": "emage",
         "password": "Emage123",
         "ip": "192.168.0.253",
-        "script_path": "/home/emage/codes/emage_adam_demo_python/demo3/follower1.py"
+        "script_path": "/home/emage/codes/emage_adam_demo_python/demo3.1/follower1.py"
     },
     # {
     #     "username": "iot98",
