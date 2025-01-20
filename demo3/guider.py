@@ -53,11 +53,11 @@ def main():
     # You can also add custom operations:
     logger.info("Starting movements...")
     time.sleep(15)
-    robot.move(x_vel=0, y_vel=0.2, z_vel=0, desired_distance=0.5, axis='y')
+    robot.move(x_vel=0, y_vel=0.2, z_vel=0, desired_distance=1.8, axis='y')
     robot.turn(desired_angle=1.57, direction='cw')
-    robot.move(x_vel=0.2, y_vel=0, z_vel=0, desired_distance=2.0, axis="x")
+    robot.move(x_vel=0.2, y_vel=0, z_vel=0, desired_distance=2.5, axis="x")
     robot.turn(desired_angle=1.57, direction='cw')
-    robot.move(x_vel=0, y_vel=-0.2, z_vel=0, desired_distance=1.6, axis="y")
+    robot.move(x_vel=0, y_vel=-0.2, z_vel=0, desired_distance=2.4, axis="y")
     robot.get_pose()
 
     # Stop the robot at the end
