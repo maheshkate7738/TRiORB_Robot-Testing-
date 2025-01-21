@@ -6,13 +6,13 @@ robots = [
     {
         "username": "emage",
         "password": "Emage123",
-        "ip": "192.168.0.205",
+        "ip": "192.168.0.102",
         "script_path": "/home/emage/codes/emage_adam_demo_python/demo3.1/guider.py"
     },
     {
         "username": "emage",
         "password": "Emage123",
-        "ip": "192.168.0.253",
+        "ip": "192.168.0.103",
         "script_path": "/home/emage/codes/emage_adam_demo_python/demo3.1/follower1.py"
     },
     # {
