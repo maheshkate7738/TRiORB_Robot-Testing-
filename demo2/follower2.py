@@ -65,7 +65,7 @@ def main():
     
     robot.move(x_vel=0, y_vel=0.2, z_vel=0, desired_distance=2.5, axis="y")
     time.sleep(2)
-    robot.move(x_vel=0.2, y_vel=0.0, z_vel=0, desired_distance=0.8, axis="y")
+    robot.move(x_vel=0.2, y_vel=0.0, z_vel=0, desired_distance=0.8, axis="x")
 
     robot.lift(-1)  # Lift down
     robot.get_pose()

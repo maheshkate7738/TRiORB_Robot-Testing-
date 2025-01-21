@@ -59,7 +59,7 @@ def main():
     robot.turn(desired_angle=1.57, direction='cw')
     robot.move(x_vel=0, y_vel=0.2, z_vel=0, desired_distance=3.0, axis='y')
     time.sleep(2)
-    robot.move(x_vel=0.2, y_vel=0.0, z_vel=0, desired_distance=0.8, axis='y')
+    robot.move(x_vel=0.2, y_vel=0.0, z_vel=0, desired_distance=0.8, axis='x')
 
     robot.get_pose()
 
