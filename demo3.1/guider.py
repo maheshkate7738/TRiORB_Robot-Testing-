@@ -56,7 +56,8 @@ def main():
     robot.move(x_vel=0.0, y_vel=0.2, z_vel=0, desired_distance=1.5, axis='y')
     time.sleep(10)
     robot.move(x_vel=0.0, y_vel=-0.2, z_vel=0, desired_distance=1.5, axis="y")
-    robot.turn(desired_angle=1.57, direction='ccw')
+    
+    #robot.turn(desired_angle=1.57, direction='ccw')
 
     # Stop the robot at the end
     robot.stop()
