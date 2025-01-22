@@ -3,19 +3,19 @@
 # Robot 1 details
 GUIDER_USER="emage"
 GUIDER_PASSWORD="Emage123"
-ROBOT1_IP="192.168.0.205"
+ROBOT1_IP="192.168.0.102"
 PROJECT_PATH="/home/emage/codes/emage_adam_demo_python"
 
 # Robot 2 details
 FOLLER1_USER="emage"
 FOLLER1_PASSWORD="Emage123"
-ROBOT2_IP="192.168.0.253"
+ROBOT2_IP="192.168.0.103"
 PROJECT_PATH2="/home/emage/codes/emage_adam_demo_python"
 
 # Robot 3 details
 ROBOT3_USERNAME="iot98"
 ROBOT3_PASSWORD="iot2023"
-ROBOT3_IP="192.168.0.72"
+ROBOT3_IP="192.168.0.104"
 PROJECT_PATH3="/home/iot98/codes/emage_adam_demo_python"
 
 # Function to connect to a robot, kill python processes, and then run git pull
