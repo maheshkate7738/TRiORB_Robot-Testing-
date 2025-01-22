@@ -154,7 +154,7 @@ def main():
         # Move backward 1.5 meters to return to the origin (adjusted for offset)
         # robot_controller.move(x_vel=0, y_vel=-0.2, z_vel=0, desired_distance=1.0, axis='y')
         
-        robot_controller.move(x_vel=0.2, y_vel=0, z_vel=0, desired_distance=1.0, axis='x')
+        robot_controller.move(x_vel=0.0, y_vel=0.2, z_vel=0, desired_distance=1.0, axis='x')
 
         # Turn 1.57 radian clockwise
         robot_controller.turn(desired_angle=1.57, direction='cw')

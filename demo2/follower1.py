@@ -1,6 +1,7 @@
 import logging
 import sys
 import os
+import time
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from triorb_robot_lib import TriOrbController
@@ -43,7 +44,7 @@ def main():
 
     # Step 1: Connect to the robot
     device_path = "/dev/ttyACM0"
-    robot = TriOrbController(device_path, logger, angle_offset_correction=0.22)
+    robot = TriOrbController(device_path, logger, angle_offset_correction=0.05)
 
     logger.info("Resetting origin...")
     robot.reset_origin()
@@ -54,14 +55,16 @@ def main():
     logger.info("Starting movements...")
     robot.move(x_vel=0, y_vel=-0.2, z_vel=0, desired_distance=0.85, axis="y")
     robot.lift(1)  # Lift up
-    robot.move(x_vel=0, y_vel=0.2, z_vel=0, desired_distance=2.02, axis="y")
-    # robot.turn(desired_angle=1.57, direction='cw')
-    robot.move(x_vel=-0.2, y_vel=0, z_vel=0, desired_distance=1.09, axis="x")
-    # robot.turn(desired_angle=1.57, direction='cw')
-    robot.move(x_vel=0, y_vel=0.2, z_vel=0, desired_distance=1.14, axis="y")
+    robot.move(x_vel=0, y_vel=0.2, z_vel=0, desired_distance=2.00, axis="y")
+    time.sleep(5)
+    robot.move(x_vel=0, y_vel=0.2, z_vel=0, desired_distance=1.15, axis="y")
     robot.turn(desired_angle=1.57, direction='cw')
-    robot.lift(-1)  # Lift down
-    robot.move(x_vel=0.2, y_vel=0, z_vel=0, desired_distance=0.85, axis="x")
+    #  robot.move(x_vel=0.2, y_vel=0, z_vel=0, desired_distance=2.0, axis="x")
+    # robot.turn(desired_angle=1.57, direction='cw')
+    # robot.move(x_vel=0, y_vel=-0.2, z_vel=0, desired_distance=0.2, axis="y")
+    # robot.turn(desired_angle=1.57, direction='cw')
+    # robot.lift(-1)  # Lift down
+    #robot.move(x_vel=0.2, y_vel=0, z_vel=0, desired_distance=0.85, axis="x")
     robot.get_pose()
 
     # Stop the robot at the end
