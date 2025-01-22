@@ -15,12 +15,13 @@ robots = [
         "ip": "192.168.0.103",
         "script_path": "/home/emage/codes/emage_adam_demo_python/demo1/demo1_follower1.py"
     },
-    {
-        "username": "iot98",
-        "password": "iot2023",
-        "ip": "192.168.0.104",
-        "script_path": "/home/iot98/codes/emage_adam_demo_python/demo1/demo1_follower2.py"
-    }
+
+    # {
+    #     "username": "iot98",
+    #     "password": "iot2023",
+    #     "ip": "192.168.0.104",
+    #     "script_path": "/home/iot98/codes/emage_adam_demo_python/demo1/demo1_follower2.py"
+    # }
 ]
 
 # Function to connect to a robot and run its script
