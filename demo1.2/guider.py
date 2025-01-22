@@ -6,8 +6,8 @@ import time
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from triorb_robot_lib import TriOrbController
 
-
 class ContextualFilter(logging.Filter):
+    """Custom filter to add context information like robot_name to log records."""
     def __init__(self, robot_name):
         super().__init__()
         self.robot_name = robot_name
@@ -15,7 +15,6 @@ class ContextualFilter(logging.Filter):
     def filter(self, record):
         record.robot_name = self.robot_name
         return True
-
 
 def configure_logger(robot_name):
     """Configure the logger with the contextual filter."""
@@ -37,40 +36,34 @@ def configure_logger(robot_name):
 
     return logger
 
-
 def main():
-    robot_name = "Follower 1"
+    robot_name = "Guider"
+
     logger = configure_logger(robot_name)
 
     # Step 1: Connect to the robot
     device_path = "/dev/ttyACM0"
-    robot = TriOrbController(device_path, logger, angle_offset_correction=0.05)
+    robot = TriOrbController(device_path, logger, distance_offset_correction=0.07, angle_offset_correction=0.15)
 
     logger.info("Resetting origin...")
     robot.reset_origin()
     logger.info("Waking up the robot...")
     robot.wakeup()
-
-    # Custom operations
+    
+    # You can also add custom operations:
     logger.info("Starting movements...")
-    robot.move(x_vel=0, y_vel=-0.2, z_vel=0, desired_distance=0.85, axis="y")
-    robot.lift(1)  # Lift up
-    robot.move(x_vel=0, y_vel=0.2, z_vel=0, desired_distance=2.00, axis="y")
+    time.sleep(16)
+    robot.move(x_vel=0, y_vel=0.2, z_vel=0, desired_distance=1.5, axis='y')
+    # robot.turn(desired_angle=3.14, direction='cw')
     time.sleep(5)
-    robot.move(x_vel=0, y_vel=0.2, z_vel=0, desired_distance=1.15, axis="y")
-    robot.turn(desired_angle=1.57, direction='cw')
-    #  robot.move(x_vel=0.2, y_vel=0, z_vel=0, desired_distance=2.0, axis="x")
-    # robot.turn(desired_angle=1.57, direction='cw')
-    # robot.move(x_vel=0, y_vel=-0.2, z_vel=0, desired_distance=0.2, axis="y")
-    # robot.turn(desired_angle=1.57, direction='cw')
-    # robot.lift(-1)  # Lift down
-    #robot.move(x_vel=0.2, y_vel=0, z_vel=0, desired_distance=0.85, axis="x")
+    robot.move(x_vel=0, y_vel=-0.2, z_vel=0, desired_distance=1.5, axis='y')
+    # robot.turn(desired_angle=3.14, direction='cw')
+    # time.sleep(10)
     robot.get_pose()
 
     # Stop the robot at the end
     robot.stop()
-    logger.info("Robot operations completed.")
-
+    logging.info("Robot operations completed.")
 
 if __name__ == "__main__":
     main()

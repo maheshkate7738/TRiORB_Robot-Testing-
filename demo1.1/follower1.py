@@ -1,7 +1,6 @@
 import logging
 import sys
 import os
-import time
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from triorb_robot_lib import TriOrbController
@@ -44,9 +43,7 @@ def main():
 
     # Step 1: Connect to the robot
     device_path = "/dev/ttyACM0"
-    #robot = TriOrbController(device_path, logger, angle_offset_correction=0.28)
-    robot = TriOrbController(device_path, logger, distance_offset_correction=0.09, angle_offset_correction=0.22)
-
+    robot = TriOrbController(device_path, logger)
 
     logger.info("Resetting origin...")
     robot.reset_origin()
@@ -55,28 +52,12 @@ def main():
 
     # Custom operations
     logger.info("Starting movements...")
-    robot.move(x_vel=0, y_vel=0.2, z_vel=0, desired_distance=2.05, axis="y")
-    # robot.lift(1)  # Lift up
-    robot.move(x_vel=0.2, y_vel=0.0, z_vel=0, desired_distance=0.9, axis="x")
-    # time.sleep(7)
-    # robot.move(x_vel=0, y_vel=0.2, z_vel=0, desired_distance=1.58, axis="y")
-    # robot.turn(desired_angle=1.57, direction='cw')
-    # robot.move(x_vel=0.2, y_vel=0, z_vel=0, desired_distance=2.5, axis="x")
-    # robot.turn(desired_angle=1.57, direction='cw')
-    # robot.move(x_vel=0, y_vel=-0.2, z_vel=0, desired_distance=1.1, axis="y")
+    robot.move(x_vel=0, y_vel=-0.2, z_vel=0, desired_distance=0.85, axis="y")
+    robot.lift(1)  # Lift up
+    robot.move(x_vel=0, y_vel=0.2, z_vel=0, desired_distance=2.1, axis="y")
+    robot.move(x_vel=0, y_vel=-0.2, z_vel=0, desired_distance=2.1, axis="y")
     robot.lift(-1)  # Lift down
-    # robot.move(x_vel=0, y_vel=0.2, z_vel=0, desired_distance=0.9, axis="y")
-
-
-    # robot.move(x_vel=0, y_vel=-0.2, z_vel=0, desired_distance=0.9, axis="y")
-    # robot.lift(1)  # Lift up
-    # robot.move(x_vel=0, y_vel=0.2, z_vel=0, desired_distance=1.0, axis="y")
-    # robot.turn(desired_angle=1.57, direction='cw')
-    # robot.move(x_vel=0.2, y_vel=0, z_vel=0, desired_distance=1.0, axis="x")
-    # robot.turn(desired_angle=1.57, direction='cw')
-    # robot.move(x_vel=0, y_vel=-0.2, z_vel=0, desired_distance=0.5, axis="y")
-    # robot.lift(-1)  # Lift down
-    robot.get_pose()
+    robot.move(x_vel=0, y_vel=0.2, z_vel=0, desired_distance=0.85, axis="y")
 
     # Stop the robot at the end
     robot.stop()
