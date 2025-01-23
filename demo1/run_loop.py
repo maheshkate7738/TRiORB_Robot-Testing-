@@ -9,19 +9,19 @@ robots = [
         "ip": "192.168.0.102",
         "script_path": "/home/emage/codes/emage_adam_demo_python/demo1/demo1_guider_loop.py"
     },
-    {
-        "username": "emage",
-        "password": "Emage123",
-        "ip": "192.168.0.103",
-        "script_path": "/home/emage/codes/emage_adam_demo_python/demo1/demo1_follower1_loop.py"
-    },
-
     # {
-    #     "username": "iot98",
-    #     "password": "iot2023",
-    #     "ip": "192.168.0.104",
-    #     "script_path": "/home/iot98/codes/emage_adam_demo_python/demo1/demo1_follower2.py"
-    # }
+    #     "username": "emage",
+    #     "password": "Emage123",
+    #     "ip": "192.168.0.103",
+    #     "script_path": "/home/emage/codes/emage_adam_demo_python/demo1/demo1_follower1_loop.py"
+    # },
+
+    {
+        "username": "iot98",
+        "password": "iot2023",
+        "ip": "192.168.0.104",
+        "script_path": "/home/iot98/codes/emage_adam_demo_python/demo1/demo1_follower1_loop.py"
+    }
 ]
 
 # Function to connect to a robot and run its script
@@ -37,7 +37,7 @@ def run_on_robot(username, password, ip, script_path):
 # List to store threads
 threads = []
 
-for _ in range(2):
+for _ in range(1):
     threads = []  # Clear threads list before each loop iteration
     # Create a thread for each robot and start it
     for robot in robots:
