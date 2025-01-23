@@ -3,12 +3,12 @@ import subprocess
 
 # Robot details
 robots = [
-    # {
-    #     "username": "emage",
-    #     "password": "Emage123",
-    #     "ip": "192.168.0.102",
-    #     "script_path": "/home/emage/codes/emage_adam_demo_python/demo2/guider.py"
-    # },
+    {
+        "username": "emage",
+        "password": "Emage123",
+        "ip": "192.168.0.102",
+        "script_path": "/home/emage/codes/emage_adam_demo_python/demo2/guider.py"
+    },
     {
         "username": "emage",
         "password": "Emage123",
