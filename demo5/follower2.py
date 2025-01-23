@@ -54,10 +54,10 @@ def main():
     # Custom operations
     logger.info("Starting movements...")
     robot.lift(1)  # Lift up
-    robot.move(x_vel=-0.2, y_vel=0, z_vel=0, desired_distance=0.2, axis="x")
+    robot.move(x_vel=-0.2, y_vel=0, z_vel=0, desired_distance=0.3, axis="x")
     robot.move(x_vel=0, y_vel=0.2, z_vel=0, desired_distance=0.7, axis="y")
     robot.lift(-1)  # Lift down
-    robot.move(x_vel=0, y_vel=-0.2, z_vel=0, desired_distance=0.95, axis="y")
+    robot.move(x_vel=0, y_vel=-0.2, z_vel=0, desired_distance=0.9, axis="y")
     # robot.turn(desired_angle=1.57, direction='cw')
     robot.get_pose()
 
