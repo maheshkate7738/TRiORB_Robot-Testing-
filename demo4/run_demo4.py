@@ -3,12 +3,12 @@ import subprocess
 
 # Robot details
 robots = [
-    {
-        "username": "emage",
-        "password": "Emage123",
-        "ip": "192.168.0.102",
-        "script_path": "/home/emage/codes/emage_adam_demo_python/demo4/guider.py"
-    },
+    # {
+    #     "username": "emage",
+    #     "password": "Emage123",
+    #     "ip": "192.168.0.102",
+    #     "script_path": "/home/emage/codes/emage_adam_demo_python/demo4/guider.py"
+    # },
 
     # {
     #     "username": "emage",
@@ -16,7 +16,7 @@ robots = [
     #     "ip": "192.168.0.103",
     #     "script_path": "/home/emage/codes/emage_adam_demo_python/demo3/follower1.py"
     # },
-    
+
     {
         "username": "iot98",
         "password": "iot2023",
