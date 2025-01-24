@@ -29,17 +29,17 @@ def move_robot():
         logging.info(f"Current position before movement: {robot.get_pos()}")
 
         # Move 1 meter forward
-        logging.info("Moving 1.5 meter forward...")
-        robot.set_pos_relative(0.0, 0.5, 0.0, vel_xy=0.2)  # Move forward 1 meter at 0.2 m/s
-        time.sleep(1)
+        logging.info("Moving 1 meter forward...")
+        robot.set_pos_absolute(0.0, 1.0, 0.0, vel_xy=0.4)  # Move forward 1 meter at 0.2 m/s
+        time.sleep(3)
         robot.join()  # Wait for completion
         # robot.brake()  # Stop the robot
         logging.info(f"Current position after movement: {robot.get_pos()}")
 
         time.sleep(2)
-        logging.info("Moving 1.5 meter backward...")
-        robot.set_pos_relative(0.0, -0.5, 0.0, vel_xy=0.2)  # Move forward 1 meter at 0.2 m/s
-        time.sleep(1)
+        logging.info("Moving 1 meter backward...")
+        robot.set_pos_absolute(0.0, 0.0, 0.0, vel_xy=0.4)  # Move forward 1 meter at 0.2 m/s
+        time.sleep(3)
         robot.join()  # Wait for completion
         robot.brake()  # Stop the robot
         logging.info(f"Current position after movement: {robot.get_pos()}")
